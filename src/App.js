@@ -1,51 +1,26 @@
-import React, { useState } from 'react';
-import Todo from './components/Todo';
-import Form from './components/Form';
-import FilterButton from './components/FilterButton';
-import { nanoid } from 'nanoid';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-function App(props) {
-  const [tasks, setTasks] = useState(props.tasks);
+import Home from "./components/pages/Home"
+import About from "./components/pages/About"
+import API from "./components/pages/API"
+import Error from "./components/pages/Error"
+import Navbar from './components/Navbar';
 
-  function addTask(name) {
-    var newTask = { id: "todo-" + nanoid(), name: name, completed: false };
-    // var temp = tasks;
-    // temp.push(newTask);
-    // console.log(typeof(tasks))
-    // console.log(typeof(temp)); 
-    // setTasks(temp);
-    // console.log(tasks);
-    // console.log(typeof(tasks))
-    setTasks([...tasks, newTask]);
-  }
-
-  const taskList = tasks.map(task =>
-    <Todo
-      id={task.id}
-      name={task.name}
-      completed={task.completed}
-      key={task.id}
-    />);
-
+function App() {
   return (
-    <div className="todoapp stack-large">
-      <h1>TodoMatic</h1>
-      <Form addTask={addTask} />
-      <div className="filters btn-group stack-exception">
-        <FilterButton />
-        <FilterButton />
-        <FilterButton />
+    <div>
+      <div style={{padding: 30}}>
+        <Navbar />
       </div>
-      <h2 id="list-heading">
-        3 tasks remaining
-      </h2>
-      <ul
-        role="list"
-        className="todo-list stack-large stack-exception"
-        aria-labelledby="list-heading"
-      >
-        {taskList}
-      </ul>
+      <main id="main">
+        <Switch>
+          <Route path="/" component={Home} exact />
+          <Route path="/about" component={About} />
+          <Route path="/API" component={API} />
+          <Route component={Error} />
+        </Switch>
+      </main>
     </div>
   );
 }
