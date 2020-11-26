@@ -7,13 +7,12 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');  
-var mongoKey = require('./key.js')
+var dev_db_url = require('./key.js')
 
 var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var dev_db_url = mongoKey
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
